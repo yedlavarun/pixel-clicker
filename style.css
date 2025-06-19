@@ -17,6 +17,10 @@ body {
   image-rendering: pixelated;
 }
 
+.upgrade-cost {
+  position: absolute;
+}
+
 button {
   padding: 10px 20px;
   font-size: 16px;

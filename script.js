@@ -27,13 +27,14 @@ async function loadPixelData(id, file) {
     updateBoth();
   };
 
-  // Optional: add cost display
-  const up_cost = document.createElement("h5");
-  up_cost.textContent = `up_cost (${pixelUpgrades[id].upgradeCost})`;
-  clicker.appendChild(up_cost);
+  const costDisplay = document.createElement("p");
+  costDisplay.textContent = `Upgrade Cost: ${pixelUpgrades[id].upgradeCost}`;
+  costDisplay.className = "upgrade-cost";
+  clicker.insertBefore(costDisplay, clicker.children[1]); // insert before the first button
 }
 
 loadPixelData("green", "green.json");
+loadPixelData("blue", "green.json")
 
 // Power up button logic
 document.querySelectorAll(".power_up").forEach(btn => {
@@ -52,6 +53,10 @@ document.querySelectorAll(".power_up").forEach(btn => {
 
       btn.textContent = `Upgrade Pwr (${upgrades.upgradeCost})`;
       updateBoth();
+    const costLabel = btn.closest(".clicker").querySelector(".upgrade-cost");
+    if (costLabel) {
+      costLabel.textContent = `Upgrade Cost: ${upgrades.upgradeCost}`;
+    }
     }
   };
 });
