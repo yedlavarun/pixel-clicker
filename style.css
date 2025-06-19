@@ -1,0 +1,46 @@
+body {
+  background: url('assets/bg.png') no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Courier New', monospace;
+  color: white;
+  margin-top: 50px;
+  margin-left: 30px;
+}
+
+#values {
+  box-shadow: 0px 0px 1px white;
+  width: 250px;
+}
+
+#green {
+  cursor: pointer;
+  image-rendering: pixelated;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: inherit;
+  background: #444;
+
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.clicker {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 550px;
+  user-select: none;
+  box-shadow: 0px 0px 1px white;
+  margin-top: 20px;
+}
+
+.clicker > button {
+  height: 30%;
+}
+
+
+
