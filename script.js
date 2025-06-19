@@ -27,14 +27,15 @@ async function loadPixelData(id, file) {
     updateBoth();
   };
 
+  // Display shared cost above the buttons
   const costDisplay = document.createElement("p");
   costDisplay.textContent = `Upgrade Cost: ${pixelUpgrades[id].upgradeCost}`;
   costDisplay.className = "upgrade-cost";
-  clicker.insertBefore(costDisplay, clicker.children[1]); // insert before the first button
+  clicker.insertBefore(costDisplay, clicker.children[1]);
 }
 
 loadPixelData("green", "green.json");
-loadPixelData("blue", "green.json")
+loadPixelData("blue", "green.json");
 
 // Power up button logic
 document.querySelectorAll(".power_up").forEach(btn => {
@@ -48,22 +49,23 @@ document.querySelectorAll(".power_up").forEach(btn => {
 
     if (score >= upgrades.upgradeCost) {
       score -= upgrades.upgradeCost;
-      autoClickers++;
       upgrades.upgradeCost = Number((upgrades.upgradeCost * upgrades.data.cost_multiplier).toFixed(2));
+      pixelUpgrades[pixelId].data.value *= 1.1;
 
-      btn.textContent = `Upgrade Pwr (${upgrades.upgradeCost})`;
+      // Update both buttons and cost label
+      btn.textContent = `Upgrade Pwr`;
+      const costLabel = btn.closest(".clicker").querySelector(".upgrade-cost");
+      if (costLabel) {
+        costLabel.textContent = `Upgrade Cost: ${upgrades.upgradeCost}`;
+      }
+
       updateBoth();
-    const costLabel = btn.closest(".clicker").querySelector(".upgrade-cost");
-    if (costLabel) {
-      costLabel.textContent = `Upgrade Cost: ${upgrades.upgradeCost}`;
-    }
     }
   };
 });
 
 function updateScore() {
-  scoreDisplay.textContent = score;
-}
+  scoreDisplay.textContent = score.toFixed(2);}
 
 function updateAutoClickers() {
   autoClickersDisplay.textContent = autoClickers;
