@@ -1,3 +1,14 @@
+// === GameMonetize SDK Init ===
+window.sdk = window.sdk || {};
+
+document.addEventListener("DOMContentLoaded", function () {
+  if (typeof sdk !== "undefined" && sdk.initAd) {
+    sdk.initAd();        // Initializes ads
+    sdk.showBanner();    // Optional banner ad
+  }
+});
+
+// === Your Original Game Code ===
 let score = 0;
 let autoClickers = 0;
 const scoreDisplay = document.getElementById("score");
@@ -25,6 +36,11 @@ async function loadPixelData(id, file) {
     score += pixelUpgrades[id].data.value;
     clickSound.play();
     updateBoth();
+
+    // Optionally show an interstitial ad every 30 points
+    if (score % 30 < pixelUpgrades[id].data.value && sdk.showAd) {
+      sdk.showAd(); // show ad occasionally
+    }
   };
 
   // Display shared cost above the buttons
@@ -44,7 +60,6 @@ document.querySelectorAll(".power_up").forEach(btn => {
 
     const pixelId = btn.closest(".clicker").id;
     const upgrades = pixelUpgrades[pixelId];
-
     if (!upgrades) return;
 
     if (score >= upgrades.upgradeCost) {
@@ -64,8 +79,18 @@ document.querySelectorAll(".power_up").forEach(btn => {
   };
 });
 
+// === Remove broken block element (this part had bugs in your code) ===
+// `document.createElement("div").classList(".block")` is invalid
+// If you want to add a block div, do this instead:
+// document.querySelectorAll(".speed_up").forEach(btn => {
+//   const block = document.createElement("div");
+//   block.classList.add("block");
+//   btn.parentNode.insertBefore(block, btn);
+// });
+
 function updateScore() {
-  scoreDisplay.textContent = score.toFixed(2);}
+  scoreDisplay.textContent = score.toFixed(2);
+}
 
 function updateAutoClickers() {
   autoClickersDisplay.textContent = autoClickers;
