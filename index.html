@@ -4,44 +4,46 @@
   <meta charset="UTF-8">
   <title>Pixel Clicker</title>
   <link rel="stylesheet" href="style.css">
+
+  <!-- GameMonetize SDK -->
   <script type="text/javascript">
-   window.SDK_OPTIONS = {
-      gameId: "gnuot5vtg1qkh3kqldc3l30mapdnv62n",
-      onEvent: function (a) {
-         switch (a.name) {
-            case "SDK_GAME_PAUSE":
-               // pause game logic / mute audio
-               break;
-            case "SDK_GAME_START":
-               // advertisement done, resume game logic and unmute audio
-               break;
-            case "SDK_READY":
-               // when sdk is ready
-               break;
-         }
+    window.SDK_OPTIONS = {
+      gameId: "gnuot5vtg1qkh3kqldc3l30mapdnv62n",  // Replace with your actual GameMonetize ID
+      onEvent: function (event) {
+        switch (event.name) {
+          case "SDK_GAME_PAUSE":
+            // Pause your game here
+            break;
+          case "SDK_GAME_START":
+            // Resume game here
+            break;
+          case "SDK_READY":
+            console.log("SDK Ready");
+            break;
+        }
       }
-   };
-(function (a, b, c) {
-   var d = a.getElementsByTagName(b)[0];
-   a.getElementById(c) || (a = a.createElement(b), a.id = c, a.src = "https://api.gamemonetize.com/sdk.js", d.parentNode.insertBefore(a, d))
-})(document, "script", "gamemonetize-sdk"); 
-</script>
+    };
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "https://api.gamemonetize.com/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, "script", "gamemonetize-sdk"));
+  </script>
 </head>
 <body>
   <div id="game">
-
     <div id="values">
       <div>Pixels: <span id="score">0</span></div>
-
-      <div>Auto Clickers:<span id="autoclickers">0</span></div>
+      <div>Auto Clickers: <span id="autoclickers">0</span></div>
     </div>
 
     <div id="green" class="clicker">
       <img src="assets/pick.png" alt="Clicker">
       <button class="power_up"></button>
-      <button class="speed_up"></button>
+      <button class="speed_up">Upgrade Speed</button>
     </div>
-
   </div>
   <script src="script.js"></script>
 </body>
