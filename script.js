@@ -8,9 +8,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// === Your Original Game Code ===
 let score = 0;
 let autoClickers = 0;
+let upgradesSinceAd = 0; // track upgrades for interstitial ads
+
 const scoreDisplay = document.getElementById("score");
 const autoClickersDisplay = document.getElementById("autoclickers");
 const clickSound = new Audio("assets/click.mp3");
@@ -67,7 +68,6 @@ document.querySelectorAll(".power_up").forEach(btn => {
       upgrades.upgradeCost = Number((upgrades.upgradeCost * upgrades.data.cost_multiplier).toFixed(2));
       pixelUpgrades[pixelId].data.value *= 1.1;
 
-      // Update both buttons and cost label
       btn.textContent = `Upgrade Pwr`;
       const costLabel = btn.closest(".clicker").querySelector(".upgrade-cost");
       if (costLabel) {
@@ -75,13 +75,18 @@ document.querySelectorAll(".power_up").forEach(btn => {
       }
 
       updateBoth();
+
+      // Show interstitial ad every 3 upgrades
+      upgradesSinceAd++;
+      if (upgradesSinceAd >= 3 && sdk.showAd) {
+        sdk.showAd();
+        upgradesSinceAd = 0;
+      }
     }
   };
 });
 
-// === Remove broken block element (this part had bugs in your code) ===
-// `document.createElement("div").classList(".block")` is invalid
-// If you want to add a block div, do this instead:
+// (Optional) Remove broken block creation
 // document.querySelectorAll(".speed_up").forEach(btn => {
 //   const block = document.createElement("div");
 //   block.classList.add("block");
